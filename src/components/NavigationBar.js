@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './../App.css';
-import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, Modal } from 'react-bootstrap';
 
 class NavigationBar extends Component {
     render() {
         return (
-            <Navbar inverse staticTop collapseOnSelect className="sticky">
+            <Navbar staticTop collapseOnSelect className="sticky">
               <Navbar.Header>
                 <Navbar.Brand>
-                  <a href="#brand">fund$</a>
+                  <a href="#brand" className="brand"><strong>fund$</strong></a>
                 </Navbar.Brand>
                 <Navbar.Toggle />
               </Navbar.Header>
@@ -30,10 +30,7 @@ class NavigationBar extends Component {
                 </Nav>
                 <Nav pullRight>
                   <NavItem eventKey={1} href="#">
-                    Link Right
-                  </NavItem>
-                  <NavItem eventKey={2} href="#">
-                    Link Right
+                    <Button bsStyle="warning" onClick={() => this.props.handleSignInClick()}>+ Join</Button>
                   </NavItem>
                 </Nav>
               </Navbar.Collapse>

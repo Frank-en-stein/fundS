@@ -6,6 +6,7 @@
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.7.0",
+    "react-icons": "^2.2.7",
     "react-scripts": "2.1.2",
     "react-social-login": "^3.4.3"
   },

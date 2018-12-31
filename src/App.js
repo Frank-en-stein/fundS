@@ -1,27 +1,34 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import brightness1 from 'react-icons/lib/md';
 import NavigationBar from './components/NavigationBar';
+import SignInModal from './components/SignInModal';
+import Intro from './components/Intro';
 
 class App extends Component {
+    constructor(props, context) {
+        super(props, context);
+
+        this.handleShowSignInModal = this.handleShowSignInModal.bind(this);
+        this.handleCloseSignInModal = this.handleCloseSignInModal.bind(this);
+
+        this.state = {
+          showSignInModal: false,
+          user: null
+        };
+    }
+    handleCloseSignInModal() {
+        this.setState({ showSignInModal: false });
+    }
+    handleShowSignInModal() {
+        this.setState({ showSignInModal: true });
+    }
   render() {
     return (
       <div className="App">
-        <NavigationBar />
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <NavigationBar handleSignInClick={() => this.handleShowSignInModal()}/>
+        <SignInModal show={this.state.showSignInModal} handleClose={() => this.handleCloseSignInModal()}/>
+        <Intro/>
       </div>
     );
   }

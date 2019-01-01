@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  //animation: App-logo-spin infinite 20s linear;
+  animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
 }
 
@@ -43,7 +43,7 @@
 
 .brand {
     color: #00ccff !important;
-    font-size: 300%;
+    font-size: 250%;
 }
 .brand-font {
     color: #00ccff !important;
@@ -80,4 +80,32 @@
 }
 .get-started-btn {
     margin-bottom: 2vh;
+}
+.vertical-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: flux-end;
+}
+.height-inherit {
+    height: inherit;
+}
+.sign-in-btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.font-xlarge {
+    font-size: x-large;
+}
+.text-white {
+    color: white !important;
+}
+.background-white {
+    background-color: white !important;
+}
+.my-account-btn-pic {
+    height: 2.5vh;
+}
+.circle {
+    border-radius: 50%;
 }

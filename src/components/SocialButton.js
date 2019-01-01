@@ -1,10 +1,11 @@
-import React from 'react'
-import SocialLogin from 'react-social-login'
+import React from 'react';
+import SocialLogin from 'react-social-login';
+import { Button } from 'react-bootstrap';
 
-const Button = ({ children, triggerLogin, ...props }) => (
-  <button onClick={triggerLogin} {...props}>
+const button = ({ children, triggerLogin, ...props }) => (
+  <Button onClick={triggerLogin} {...props}>
     { children }
-  </button>
+  </Button>
 )
 
-export default SocialLogin(Button);
+export default SocialLogin(button);

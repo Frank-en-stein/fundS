@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import './../App.css';
 import * as SocialIDs from './../SocialIDs.json';
 import { Button, Modal } from 'react-bootstrap';
-import SocialLogin from 'react-social-login';
 import SocialButton from './SocialButton';
+import { FaFacebook, FaGoogle, FaLinkedin } from 'react-icons/lib/fa';
 
 class SignInModal extends Component {
     handleSocialLogin = (user) => {
-        console.log(user);
+        this.props.setUser(user);
+        this.props.handleClose()
     }
 
     handleSocialLoginFailure = (err) => {
         console.error(err);
+        alert("Sign in with Social media failed. Please check yout network configuration or try signing in with some other social media")
     }
     render() {
         return (
@@ -19,14 +21,14 @@ class SignInModal extends Component {
                 <Modal.Header closeButton>
                   <Modal.Title>Sign in using:</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="sign-in-btn-container">
                     <SocialButton
                       provider='facebook'
                       appId={SocialIDs.facebook}
                       onLoginSuccess={this.handleSocialLogin}
                       onLoginFailure={this.handleSocialLoginFailure}
                     >
-                      Login with Facebook
+                      <FaFacebook className="font-xlarge"/> Facebook
                     </SocialButton>
                     <SocialButton
                       provider='google'
@@ -34,7 +36,7 @@ class SignInModal extends Component {
                       onLoginSuccess={this.handleSocialLogin}
                       onLoginFailure={this.handleSocialLoginFailure}
                     >
-                      Login with Google
+                      <FaGoogle className="font-xlarge"/> Google
                     </SocialButton>
                     <SocialButton
                       provider='linkedin'
@@ -42,11 +44,11 @@ class SignInModal extends Component {
                       onLoginSuccess={this.handleSocialLogin}
                       onLoginFailure={this.handleSocialLoginFailure}
                     >
-                      Login with LinkedIn
+                      <FaLinkedin className="font-xlarge"/> LinkedIn
                     </SocialButton>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button onClick={() => this.props.handleClose()}>Close</Button>
+                  <Button bsStyle="danger" onClick={() => this.props.handleClose()}>Close</Button>
                 </Modal.Footer>
               </Modal>
         );

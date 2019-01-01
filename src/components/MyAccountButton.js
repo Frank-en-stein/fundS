@@ -5,7 +5,7 @@ class MyAccountButton extends Component {
     render() {
         return (
             <span className="text-white">
-                <img href="#" src={this.props.profilePicURL} className="circle my-account-btn-pic"/> My Account
+                <img href="#" alt="ProPic" src={this.props.profilePicURL} className="circle my-account-btn-pic"/> My Account
             </span>
         );
     }

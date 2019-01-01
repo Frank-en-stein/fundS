@@ -3,6 +3,7 @@ import './App.css';
 import NavigationBar from './components/NavigationBar';
 import SignInModal from './components/SignInModal';
 import Intro from './components/Intro';
+import NewLoanModal from './components/NewLoanModal';
 
 class App extends Component {
     constructor(props, context) {
@@ -13,6 +14,7 @@ class App extends Component {
 
         this.state = {
           showSignInModal: false,
+          showNewLoanModal: false,
           user: null
         };
     }
@@ -22,6 +24,12 @@ class App extends Component {
     handleShowSignInModal() {
         this.setState({ showSignInModal: true });
     }
+    handleCloseNewLoanModal() {
+      this.setState({ showNewLoanModal: false });
+    }
+    handleShowNewLoanModal() {
+        this.setState({ showNewLoanModal: true });
+    }
     setUser(fetchedUser) {
       this.setState({ user: fetchedUser });
       console.log(this.state.user._profile.profilePicURL);
@@ -29,9 +37,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavigationBar user={this.state.user} handleSignInClick={() => this.handleShowSignInModal()}/>
+        <NavigationBar user={this.state.user} handleSignInClick={() => this.handleShowSignInModal()} handleNewLoanClick={() => this.handleShowNewLoanModal()}/>
         <SignInModal show={this.state.showSignInModal} handleClose={() => this.handleCloseSignInModal()} setUser={(user) => this.setUser(user)}/>
-        <Intro/>
+        <NewLoanModal show={this.state.showNewLoanModal} handleClose={() => this.handleCloseNewLoanModal()} user={this.state.user}/>
+        <Intro handleNewLoanClick={() => this.handleShowNewLoanModal()}/>
       </div>
     );
   }

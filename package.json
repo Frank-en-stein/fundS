@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "final-form": "^4.11.0",
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.7.0",
+    "react-final-form": "^4.0.2",
     "react-icons": "^2.2.7",
-    "react-scripts": "2.1.2",
+    "react-scripts": "^2.1.2",
     "react-social-login": "^3.4.3"
   },
   "scripts": {

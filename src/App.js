@@ -32,14 +32,27 @@ class App extends Component {
     }
     setUser(fetchedUser) {
       this.setState({ user: fetchedUser });
-      console.log(this.state.user._profile.profilePicURL);
+      console.log(this.state.user._profile);
     }
   render() {
     return (
       <div className="App">
-        <NavigationBar user={this.state.user} handleSignInClick={() => this.handleShowSignInModal()} handleNewLoanClick={() => this.handleShowNewLoanModal()}/>
-        <SignInModal show={this.state.showSignInModal} handleClose={() => this.handleCloseSignInModal()} setUser={(user) => this.setUser(user)}/>
-        <NewLoanModal show={this.state.showNewLoanModal} handleClose={() => this.handleCloseNewLoanModal()} user={this.state.user}/>
+        <NavigationBar
+            user={this.state.user}
+            setUser={(user) => this.setUser(user)}
+            handleSignInClick={() => this.handleShowSignInModal()}
+            handleNewLoanClick={() => this.handleShowNewLoanModal()}
+        />
+        <SignInModal
+            show={this.state.showSignInModal}
+            handleClose={() => this.handleCloseSignInModal()}
+            setUser={(user) => this.setUser(user)}
+        />
+        <NewLoanModal
+            show={this.state.showNewLoanModal}
+            handleClose={() => this.handleCloseNewLoanModal()}
+            user={this.state.user}
+        />
         <Intro handleNewLoanClick={() => this.handleShowNewLoanModal()}/>
       </div>
     );

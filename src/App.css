@@ -94,6 +94,9 @@
     flex-direction: row;
     justify-content: space-around;
 }
+.italic {
+    font-style: italic;
+}
 .font-xlarge {
     font-size: x-large;
 }
@@ -108,4 +111,20 @@
 }
 .circle {
     border-radius: 50%;
+}
+.profile-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.profile-card-info {
+    margin-left: 2vw;
+}
+.profile-card-img {
+    max-height: 10vh;
+}
+.content-ver-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

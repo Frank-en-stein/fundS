@@ -11,10 +11,13 @@ class NavigationBar extends Component {
     </NavItem>
     );
     account = () => (
-      <NavDropdown eventKey={5} title={<MyAccountButton profilePicURL={this.props.user!=null ? this.props.user._profile.profilePicURL : null}/>} id="basic-nav-dropdown" className="btn-small btn-info">
+      <NavDropdown
+            eventKey={5}
+            title={<MyAccountButton profilePicURL={this.props.user!=null ? this.props.user._profile.profilePicURL : null}/>}
+            id="basic-nav-dropdown" className="btn-small btn-info">
         <MenuItem eventKey={5.1} className="background-white" onClick={() => this.props.handleNewLoanClick()}><FaDollar/> New loan</MenuItem>
         <MenuItem eventKey={5.2} className="background-white"><FaList/> My loans</MenuItem>
-        <MenuItem eventKey={5.3} className="background-white"><FaSignOut/> Sign out</MenuItem>
+        <MenuItem eventKey={5.3} className="background-white" onClick={() => this.props.setUser(null)}><FaSignOut/> Sign out</MenuItem>
       </NavDropdown>
     );
     render() {

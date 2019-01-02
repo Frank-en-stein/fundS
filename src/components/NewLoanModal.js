@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
 import './../App.css';
-import { Button, Modal } from 'react-bootstrap';
-import { Form, Field } from 'react-final-form';
+import { Modal } from 'react-bootstrap';
+import { Form } from 'react-final-form';
 import ProfileCard from './ProfileCard';
 import LoanFormSelect from './LoanFormSelect';
 import LoanFormPayableField from './LoanFormPayableField';
 import LoanFromInput from './LoanFromInput';
 import requests from '../network/requests.js';
-
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-const onSubmit = async values => {
-  await sleep(300)
-  window.alert(JSON.stringify(values, 0, 2))
-}
 
 class NewLoanModal extends Component {
     constructor(props, context) {
@@ -33,25 +26,33 @@ class NewLoanModal extends Component {
         alert("Sign in with Social media failed. Please check yout network configuration or try signing in with some other social media")
     }
 
+    onSubmit = (values) => {
+      requests.postNewLoanApplication(values, (isSuccess) => {
+          if (isSuccess)  this.props.handleClose();
+          else alert("Application submission failed");
+          //window.alert(JSON.stringify(values, 0, 2));
+      });
+    }
+
     render() {
         return (
             <Modal show={this.props.show} onHide={() => this.props.handleClose()}>
                 <Modal.Header closeButton>
-                    <Modal.Title>New loan application <button type="button" className="btn btn-info" 
+                    <Modal.Title>New loan application <button type="button" className="btn btn-small btn-info"
                         onClick={() => requests.getLoanApplicationDraftForm((isSuccess, data) => this.setState({formValues: data}))}>Restore last draft</button></Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="new-loan-modal-container">
                     <ProfileCard user={this.props.user}/>
                     <hr/>
                     <Form
-                      onSubmit={onSubmit}
+                      onSubmit={this.onSubmit}
                       initialValues={this.state.formValues}
                       values={this.state.formValues}
                       render={({ handleSubmit, form, submitting, pristine, values }) => (
                         <form onSubmit={handleSubmit} className="form-horizontal">
                           <LoanFormSelect label="Business type" identifier="businessTypes" getItems={requests.getBusinessTypes}/>
                           <LoanFormSelect label="Repay frequency" identifier="loanFrequency" getItems={requests.getLoanFrequencyLabels}/>
-                          <LoanFromInput label="Number of instalments" identifier="instalments" getPlaceholder={requests.getMaxNumInstalments} 
+                          <LoanFromInput label="Number of instalments" identifier="instalments" getPlaceholder={requests.getMaxNumInstalments}
                                 processPlaceholder={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : "max "+data[values.loanFrequency]}/>
                           <LoanFromInput label="Loan amount (USD)" identifier="amount" getPlaceholder={requests.getMaxAmounts}
                                 processPlaceholder={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : "max $"+data[values.loanFrequency]}/>
@@ -61,17 +62,18 @@ class NewLoanModal extends Component {
                                 processData={(data) => data === null ? null : data[values.loanFrequency] === undefined || values.amount === undefined ? null : (parseFloat(values.amount)/values.instalments)*(1+data[values.loanFrequency]/100.00)}/>
                           <div className="form-group content-inline content-align-end">
                             <label className="control-label field-label-margin">Upload docs</label>
-                            <Field
+                            <input
                               name="docs"
                               component="input"
                               type="file"
                               placeholder="docs"
                               className="form-control field-width field-margin"
+                              onChange={(event) => event.target.length === 0 ? null : values["docs"] = event.target.files[0]}
                             />
                           </div>
                           <hr/>
                           <div className="buttons content-inline content-space-between">
-                            <button type="button" className="btn btn-primary" disabled={submitting || pristine} 
+                            <button type="button" className="btn btn-primary" disabled={submitting || pristine}
                                     onClick={() => {
                                         requests.postLoanApplicationDraftForm(values, (isSuccess) => {
                                             if (isSuccess) {

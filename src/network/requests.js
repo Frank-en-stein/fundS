@@ -110,13 +110,20 @@ function getLoanApplicationDraftForm(callback) {
 }
 
 function postLoanApplicationDraftForm(data, callback) {
-    if(isDummy) {
+    if (isDummy) {
         localStorage.setItem("loanApplicationDraft", JSON.stringify(data));
         callback(true);
         return;
     }
 
-    axios.post(networkUtils.makeUrl(urlConstants.paths.get.loanApplicationDraft), data)
+    var user = JSON.parse(localStorage.getItem("user"));
+    if (user === null) {
+        console.log("User not logged in");
+        return;
+    }
+
+    let payload = {"user": user, "data": data};
+    axios.post(networkUtils.makeUrl(urlConstants.paths.get.loanApplicationDraft), payload)
         .then((response) => {
             callback(true);
         })
@@ -126,4 +133,32 @@ function postLoanApplicationDraftForm(data, callback) {
         });
 }
 
-export default { getBusinessTypes, getLoanFrequencyLabels, getLoanRates, getMaxNumInstalments, getMaxAmounts, getLoanApplicationDraftForm, postLoanApplicationDraftForm };
+function postNewLoanApplication(data, callback) {
+    if (isDummy) {
+        var loanApplications = JSON.parse(localStorage.getItem("loanApplications"));
+        if (loanApplications === null) loanApplications = [];
+        loanApplications.push(data);
+        localStorage.setItem("loanApplications", JSON.stringify(loanApplications));
+        callback(true);
+        return;
+    }
+
+    var user = JSON.parse(localStorage.getItem("user"));
+    if (user === null) {
+        console.log("User not logged in");
+        return;
+    }
+
+    let payload = {"user": user, "data": data};
+    axios.post(networkUtils.makeUrl(urlConstants.paths.get.loanApplicationDraft), payload)
+        .then((response) => {
+            callback(true);
+        })
+        .catch((error) => {
+            console.log(error);
+            callback(false);
+        });
+}
+
+export default { getBusinessTypes, getLoanFrequencyLabels, getLoanRates, getMaxNumInstalments,
+    getMaxAmounts, getLoanApplicationDraftForm, postLoanApplicationDraftForm, postNewLoanApplication };

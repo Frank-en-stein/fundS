@@ -1,0 +1,15 @@
+{
+    "domain": "",
+    "paths": {
+        "get": {
+            "businessTypes": "/form/params/businessTypes",
+            "loanFrequencyLabels": "/form/params/loanFrequencyLabels",
+            "loanRates": "/form/params/loanRates",
+            "maxInstalments": "/form/params/maxInstalments",
+            "maxAmounts": "/form/params/maxAmounts"
+        },
+        "post": {
+
+        }
+    }
+}

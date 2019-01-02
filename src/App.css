@@ -128,3 +128,23 @@
     flex-direction: column;
     justify-content: center;
 }
+.content-inline {
+    display: flex;
+    flex-direction: row;
+}
+.content-space-around-center {
+    justify-content: space-around;
+    align-items: center;
+}
+.content-align-end {
+    justify-content: flex-end;
+}
+.field-width {
+    width: 50%;
+}
+.field-margin {
+    margin-right: 3vw;
+}
+.field-label-margin {
+    margin-right: 1vw;
+}

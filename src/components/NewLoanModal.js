@@ -3,6 +3,10 @@ import './../App.css';
 import { Button, Modal } from 'react-bootstrap';
 import { Form, Field } from 'react-final-form';
 import ProfileCard from './ProfileCard';
+import LoanFormSelect from './LoanFormSelect';
+import LoanFormPayableField from './LoanFormPayableField';
+import LoanFromInput from './LoanFromInput';
+import requests from '../network/requests.js';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -35,127 +39,28 @@ class NewLoanModal extends Component {
                       onSubmit={onSubmit}
                       initialValues={{ stooge: 'larry', employed: false }}
                       render={({ handleSubmit, form, submitting, pristine, values }) => (
-                        <form onSubmit={handleSubmit}>
-                          <div>
-                            <label>First Name</label>
+                        <form onSubmit={handleSubmit} className="form-horizontal">
+                          <LoanFormSelect label="Business type" identifier="businessTypes" getItems={requests.getBusinessTypes}/>
+                          <LoanFormSelect label="Repay frequency" identifier="loanFrequency" getItems={requests.getLoanFrequencyLabels}/>
+                          <LoanFromInput label="Number of instalments" identifier="instalments" getPlaceholder={requests.getMaxNumInstalments} 
+                                processPlaceholder={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : "max "+data[values.loanFrequency]}/>
+                          <LoanFromInput label="Loan amount (USD)" identifier="amount" getPlaceholder={requests.getMaxAmounts}
+                                processPlaceholder={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : "max $"+data[values.loanFrequency]}/>
+                          <LoanFormPayableField label="Total repayable (USD)" getData={requests.getLoanRates}
+                                processData={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : values.amount*(1+data[values.loanFrequency]/100.00)}/>
+                          <LoanFormPayableField label="Per instalment (USD)" getData={requests.getLoanRates}
+                                processData={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : (parseFloat(values.amount)/values.instalments)*(1+data[values.loanFrequency]/100.00)}/>
+                          <div className="form-group content-inline content-align-end">
+                            <label className="control-label field-label-margin">Upload docs</label>
                             <Field
-                              name="firstName"
+                              name="docs"
                               component="input"
-                              type="text"
-                              placeholder="First Name"
+                              type="file"
+                              placeholder="docs"
+                              className="form-control field-width field-margin"
                             />
                           </div>
-                          <div>
-                            <label>Last Name</label>
-                            <Field
-                              name="lastName"
-                              component="input"
-                              type="text"
-                              placeholder="Last Name"
-                            />
-                          </div>
-                          <div>
-                            <label>Employed</label>
-                            <Field name="employed" component="input" type="checkbox" />
-                          </div>
-                          <div>
-                            <label>Favorite Color</label>
-                            <Field name="favoriteColor" component="select">
-                              <option />
-                              <option value="#ff0000">❤️ Red</option>
-                              <option value="#00ff00">💚 Green</option>
-                              <option value="#0000ff">💙 Blue</option>
-                            </Field>
-                          </div>
-                          <div>
-                            <label>Toppings</label>
-                            <Field name="toppings" component="select" multiple>
-                              <option value="chicken">🐓 Chicken</option>
-                              <option value="ham">🐷 Ham</option>
-                              <option value="mushrooms">🍄 Mushrooms</option>
-                              <option value="cheese">🧀 Cheese</option>
-                              <option value="tuna">🐟 Tuna</option>
-                              <option value="pineapple">🍍 Pineapple</option>
-                            </Field>
-                          </div>
-                          <div>
-                            <label>Sauces</label>
-                            <div>
-                              <label>
-                                <Field
-                                  name="sauces"
-                                  component="input"
-                                  type="checkbox"
-                                  value="ketchup"
-                                />{' '}
-                                Ketchup
-                              </label>
-                              <label>
-                                <Field
-                                  name="sauces"
-                                  component="input"
-                                  type="checkbox"
-                                  value="mustard"
-                                />{' '}
-                                Mustard
-                              </label>
-                              <label>
-                                <Field
-                                  name="sauces"
-                                  component="input"
-                                  type="checkbox"
-                                  value="mayonnaise"
-                                />{' '}
-                                Mayonnaise
-                              </label>
-                              <label>
-                                <Field
-                                  name="sauces"
-                                  component="input"
-                                  type="checkbox"
-                                  value="guacamole"
-                                />{' '}
-                                Guacamole 🥑
-                              </label>
-                            </div>
-                          </div>
-                          <div>
-                            <label>Best Stooge</label>
-                            <div>
-                              <label>
-                                <Field
-                                  name="stooge"
-                                  component="input"
-                                  type="radio"
-                                  value="larry"
-                                />{' '}
-                                Larry
-                              </label>
-                              <label>
-                                <Field
-                                  name="stooge"
-                                  component="input"
-                                  type="radio"
-                                  value="moe"
-                                />{' '}
-                                Moe
-                              </label>
-                              <label>
-                                <Field
-                                  name="stooge"
-                                  component="input"
-                                  type="radio"
-                                  value="curly"
-                                />{' '}
-                                Curly
-                              </label>
-                            </div>
-                          </div>
-                          <div>
-                            <label>Notes</label>
-                            <Field name="notes" component="textarea" placeholder="Notes" />
-                          </div>
-                          <div className="buttons">
+                          <div className="buttons content-inline content-space-around-center">
                             <button type="submit" disabled={submitting || pristine}>
                               Submit
                             </button>

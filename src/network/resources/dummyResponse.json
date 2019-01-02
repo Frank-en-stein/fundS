@@ -1,0 +1,28 @@
+{
+    "businessTypes": [
+        "one",
+        "two"
+    ],
+    "loanFrequencyLabels": ["weekly", "biweekly", "monthly", "quarterly", "yearly"],
+    "loanRates": {
+        "weekly": 1.25,
+        "biweekly": 2,
+        "monthly": 3.25,
+        "quarterly": 5,
+        "yearly": 7
+    },
+    "maxInstalments": {
+        "weekly": 96,
+        "biweekly": 48,
+        "monthly": 24,
+        "quarterly": 8,
+        "yearly": 2
+    },
+    "maxAmounts": {
+        "weekly": 10000,
+        "biweekly": 5000,
+        "monthly": 2400,
+        "quarterly": 8000,
+        "yearly": 20000
+    }
+}

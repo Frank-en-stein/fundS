@@ -9,7 +9,7 @@ class ProfileCard extends Component {
         return (
             <div className="profile-card">
                 <div className="content-ver-center profile-card-img-container">
-                    <img src={this.getProfilePicURL()} className="circle profile-card-img"/>
+                    <img src={this.getProfilePicURL()} alt="proPic" className="circle profile-card-img"/>
                 </div>
                 <div className="content-ver-center profile-card-info">
                     <span><strong>{this.getProfileName()}</strong></span>

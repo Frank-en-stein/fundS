@@ -136,6 +136,9 @@
     justify-content: space-around;
     align-items: center;
 }
+.content-space-between {
+    justify-content: space-between;
+}
 .content-align-end {
     justify-content: flex-end;
 }

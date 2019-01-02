@@ -6,7 +6,8 @@
             "loanFrequencyLabels": "/form/params/loanFrequencyLabels",
             "loanRates": "/form/params/loanRates",
             "maxInstalments": "/form/params/maxInstalments",
-            "maxAmounts": "/form/params/maxAmounts"
+            "maxAmounts": "/form/params/maxAmounts",
+            "loanApplicationDraft": "/form/params/loan/draft"
         },
         "post": {
 

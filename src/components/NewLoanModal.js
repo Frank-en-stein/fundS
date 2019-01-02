@@ -16,6 +16,13 @@ const onSubmit = async values => {
 }
 
 class NewLoanModal extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            formValues: null
+        }
+    }
+
     handleSocialLogin = (user) => {
         this.props.setUser(user);
         this.props.handleClose()
@@ -30,14 +37,16 @@ class NewLoanModal extends Component {
         return (
             <Modal show={this.props.show} onHide={() => this.props.handleClose()}>
                 <Modal.Header closeButton>
-                    <Modal.Title>New loan application</Modal.Title>
+                    <Modal.Title>New loan application <button type="button" className="btn btn-info" 
+                        onClick={() => requests.getLoanApplicationDraftForm((isSuccess, data) => this.setState({formValues: data}))}>Restore last draft</button></Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="new-loan-modal-container">
                     <ProfileCard user={this.props.user}/>
                     <hr/>
                     <Form
                       onSubmit={onSubmit}
-                      initialValues={{ stooge: 'larry', employed: false }}
+                      initialValues={this.state.formValues}
+                      values={this.state.formValues}
                       render={({ handleSubmit, form, submitting, pristine, values }) => (
                         <form onSubmit={handleSubmit} className="form-horizontal">
                           <LoanFormSelect label="Business type" identifier="businessTypes" getItems={requests.getBusinessTypes}/>
@@ -47,9 +56,9 @@ class NewLoanModal extends Component {
                           <LoanFromInput label="Loan amount (USD)" identifier="amount" getPlaceholder={requests.getMaxAmounts}
                                 processPlaceholder={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : "max $"+data[values.loanFrequency]}/>
                           <LoanFormPayableField label="Total repayable (USD)" getData={requests.getLoanRates}
-                                processData={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : values.amount*(1+data[values.loanFrequency]/100.00)}/>
+                                processData={(data) => data === null ? null : data[values.loanFrequency] === undefined || values.amount === undefined ? null : values.amount*(1+data[values.loanFrequency]/100.00)}/>
                           <LoanFormPayableField label="Per instalment (USD)" getData={requests.getLoanRates}
-                                processData={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : (parseFloat(values.amount)/values.instalments)*(1+data[values.loanFrequency]/100.00)}/>
+                                processData={(data) => data === null ? null : data[values.loanFrequency] === undefined || values.amount === undefined ? null : (parseFloat(values.amount)/values.instalments)*(1+data[values.loanFrequency]/100.00)}/>
                           <div className="form-group content-inline content-align-end">
                             <label className="control-label field-label-margin">Upload docs</label>
                             <Field
@@ -60,26 +69,36 @@ class NewLoanModal extends Component {
                               className="form-control field-width field-margin"
                             />
                           </div>
-                          <div className="buttons content-inline content-space-around-center">
-                            <button type="submit" disabled={submitting || pristine}>
-                              Submit
-                            </button>
-                            <button
-                              type="button"
-                              onClick={form.reset}
-                              disabled={submitting || pristine}
-                            >
-                              Reset
-                            </button>
+                          <hr/>
+                          <div className="buttons content-inline content-space-between">
+                            <button type="button" className="btn btn-primary" disabled={submitting || pristine} 
+                                    onClick={() => {
+                                        requests.postLoanApplicationDraftForm(values, (isSuccess) => {
+                                            if (isSuccess) {
+                                                this.props.handleClose();
+                                                alert("Application draft saved");
+                                            }
+                                        });
+                                    }
+                                }
+                                >Save as draft</button>
+                            <div className="content-align-end">
+                                <button type="submit" className="btn btn-success" disabled={submitting || pristine}>Submit</button>
+                                <button
+                                type="button"
+                                onClick={form.reset}
+                                className="btn btn-danger"
+                                disabled={submitting || pristine}
+                                >
+                                Reset
+                                </button>
+                            </div>
                           </div>
                           <pre>{JSON.stringify(values, 0, 2)}</pre>
                         </form>
                       )}
                     />
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button bsStyle="danger" onClick={() => this.props.handleClose()}>Close</Button>
-                </Modal.Footer>
             </Modal>
         );
     }

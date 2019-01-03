@@ -61,7 +61,7 @@
     .intro {
         width: 40vw;
     }
-    .my-application {
+    .my-application-table {
         width: 85vw;
     }
 }
@@ -134,6 +134,11 @@
     flex-direction: column;
     justify-content: center;
 }
+.content-hor-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 .content-inline {
     display: flex;
     flex-direction: row;
@@ -163,9 +168,12 @@
 
 .my-application {
     height: 100vh;
-    overflow-y: scroll;
 }
 .my-application-table {
     background-color: white !important;
     opacity: .85;
+    overflow-y: auto;
+}
+table th {
+    text-align: center;
 }

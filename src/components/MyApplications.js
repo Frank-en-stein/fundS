@@ -10,7 +10,7 @@ export const history = createHashHistory();
 class MyApplications extends Component {
     render() {
         return (
-            <div className="App-bg my-application">
+            <div className="App-bg my-application content-hor-center">
                 <Table className="avoid-navbar my-application-table" responsive>
                 <thead>
                     <tr>

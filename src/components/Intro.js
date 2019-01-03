@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 class Intro extends Component {
     render() {
         return (
-            <header className="App-header">
+            <header className="App-header App-bg">
                 <div className="intro">
                     <blockquote className="blockquote bg-info intro-sub-online">
                         <div>

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import './../App.css';
+import './../../App.css';
 import { Modal } from 'react-bootstrap';
 import { Form } from 'react-final-form';
-import ProfileCard from './ProfileCard';
-import LoanFormSelect from './LoanFormSelect';
-import LoanFormPayableField from './LoanFormPayableField';
-import LoanFromInput from './LoanFromInput';
-import requests from '../network/requests.js';
+import ProfileCard from '../ProfileCard';
+import LoanFormSelect from '../form_items/LoanFormSelect';
+import LoanFormPayableField from '../form_items/LoanFormPayableField';
+import LoanFromInput from '../form_items/LoanFromInput';
+import requests from '../../network/requests.js';
 
 class NewLoanModal extends Component {
     constructor(props, context) {
@@ -38,7 +38,7 @@ class NewLoanModal extends Component {
         return (
             <Modal show={this.props.show} onHide={() => this.props.handleClose()}>
                 <Modal.Header closeButton>
-                    <Modal.Title>New loan application <button type="button" className="btn btn-small btn-info"
+                    <Modal.Title>{this.props.modalTitle} <button type="button" className="btn btn-small btn-info"
                         onClick={() => requests.getLoanApplicationDraftForm((isSuccess, data) => this.setState({formValues: data}))}>Restore last draft</button></Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="new-loan-modal-container">

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import NavigationBar from './components/NavigationBar';
-import SignInModal from './components/SignInModal';
 import Intro from './components/Intro';
-import NewLoanModal from './components/NewLoanModal';
+import NewLoanModal from './components/modals/NewLoanModal';
+import SignInModal from './components/modals/SignInModal';
+import MyApplications from './components/MyApplications';
+import MyLoans from './components/MyLoans';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Link, HashRouter, Redirect,BrowserHistory } from 'react-router-dom';
-
 import { createHashHistory } from 'history';
 export const history = createHashHistory();
 
@@ -20,6 +21,7 @@ class App extends Component {
         this.state = {
           showSignInModal: false,
           showNewLoanModal: false,
+          newLoanModalTitle: "New loan application",
           user: null
         };
     }
@@ -63,11 +65,14 @@ class App extends Component {
             show={this.state.showNewLoanModal}
             handleClose={() => this.handleCloseNewLoanModal()}
             user={this.state.user}
+            modalTitle={this.state.newLoanModalTitle}
         />
         <Router>
     		<Switch>
     			<Route exact path={'/'} 	render={() => <Intro handleNewLoanClick={() => this.handleShowNewLoanModal()}/>} />
                 <Route exact path={'/home'} render={() => <Intro handleNewLoanClick={() => this.handleShowNewLoanModal()}/>} />
+                <Route exact path={'/myApplications'} render={() => <MyApplications />} />
+                <Route exact path={'/myLoans'} render={() => <MyLoans />} />
     		</Switch>
     	</Router>
       </div>

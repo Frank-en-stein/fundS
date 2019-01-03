@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './../App.css';
-import * as SocialIDs from './../SocialIDs.json';
+import './../../App.css';
+import * as SocialIDs from './../../SocialIDs.json';
 import { Button, Modal } from 'react-bootstrap';
-import SocialButton from './SocialButton';
+import SocialButton from '../form_items/SocialButton';
 import { FaFacebook, FaGoogle, FaLinkedin } from 'react-icons/lib/fa';
 
 class SignInModal extends Component {

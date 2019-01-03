@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './../App.css';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import MyAccountButton from './MyAccountButton';
+import MyAccountButton from './form_items/MyAccountButton';
 import { FaSignOut, FaDollar, FaList } from 'react-icons/lib/fa';
+
 
 class NavigationBar extends Component {
     signin = () => (
@@ -16,8 +17,8 @@ class NavigationBar extends Component {
             title={<MyAccountButton profilePicURL={this.props.user!=null ? this.props.user._profile.profilePicURL : null}/>}
             id="basic-nav-dropdown" className="btn-small btn-info">
         <MenuItem eventKey={5.1} className="background-white" onClick={() => this.props.handleNewLoanClick()}><FaDollar/> Apply for loan</MenuItem>
-        <MenuItem eventKey={5.2} className="background-white"><FaList/> My applications</MenuItem>
-        <MenuItem eventKey={5.3} className="background-white"><FaList/> My loans</MenuItem>
+        <MenuItem eventKey={5.2} className="background-white" onClick={() => window.location='/myApplications'}><FaList/> My applications</MenuItem>
+        <MenuItem eventKey={5.3} className="background-white" onClick={() => window.location='/myLoans'}><FaList/> My loans</MenuItem>
         <MenuItem eventKey={5.4} className="background-white" onClick={() => this.props.setUser(null)}><FaSignOut/> Sign out</MenuItem>
       </NavDropdown>
     );

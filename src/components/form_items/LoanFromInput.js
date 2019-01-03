@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './../App.css';
+import './../../App.css';
 import { Field } from 'react-final-form';
 
 class LoanFromPayable extends Component {

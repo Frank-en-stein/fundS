@@ -62,6 +62,7 @@ class App extends Component {
                 setUser={(user) => this.setUser(user)}
                 handleSignInClick={(e) => this.handleShowSignInModal()}
                 handleNewLoanClick={(e) => this.handleShowNewLoanModal()}
+                myApplicationsShouldUpdate={this.state.myApplicationsShouldUpdate}
             />
         );
     }
@@ -72,6 +73,7 @@ class App extends Component {
                 setUser={(user) => this.setUser(user)}
                 handleSignInClick={(e) => this.handleShowSignInModal()}
                 handleNewLoanClick={(e) => this.handleShowNewLoanModal()}
+                myLoansShouldUpdate={this.state.myLoansShouldUpdate}
             />
         );
     }

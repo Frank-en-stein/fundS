@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import './../App.css';
 import { Table } from 'react-bootstrap';
+import NavigationBar from './NavigationBar';
 
 class MyLoans extends Component {
     render() {
         return (
             <div>
-                <Table responsive>
+                <NavigationBar
+                    user={this.props.user}
+                    setUser={(user) => this.props.setUser(user)}
+                    handleSignInClick={(e) => this.props.handleSignInClick(e)}
+                    handleNewLoanClick={(e) => this.props.handleNewLoanClick(e)}
+                />
+                <Table className="avoid-navbar" responsive>
                 <thead>
                     <tr>
                     <th>#</th>

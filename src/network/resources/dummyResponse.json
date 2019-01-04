@@ -24,5 +24,6 @@
         "monthly": 2400,
         "quarterly": 8000,
         "yearly": 20000
-    }
+    },
+    "applicationStatuses": ["Cancelled", "Pending", "Accepted", "Rejected"]
 }

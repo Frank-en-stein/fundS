@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import NavigationBar from './components/NavigationBar';
 import Intro from './components/Intro';
 import NewLoanModal from './components/modals/NewLoanModal';
 import SignInModal from './components/modals/SignInModal';
 import MyApplications from './components/MyApplications';
 import MyLoans from './components/MyLoans';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route, Link, HashRouter, Redirect,BrowserHistory } from 'react-router-dom';
-import { createHashHistory } from 'history';
-export const history = createHashHistory();
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 class App extends Component {
     constructor(props, context) {
@@ -22,7 +18,9 @@ class App extends Component {
           showSignInModal: false,
           showNewLoanModal: false,
           newLoanModalTitle: "New loan application",
-          user: null
+          user: null,
+          myApplicationsShouldUpdate: false,
+          myLoansShouldUpdate: false
         };
     }
     componentWillMount() {
@@ -47,15 +45,40 @@ class App extends Component {
       console.log(this.state.user._profile);
     }
 
+    renderIntroPage() {
+        return (
+            <Intro 
+                user={this.state.user}
+                setUser={(user) => this.setUser(user)}
+                handleSignInClick={(e) => this.handleShowSignInModal()}
+                handleNewLoanClick={(e) => this.handleShowNewLoanModal()}
+            />
+        );
+    }
+    renderMyApplicationPage() {
+        return (
+            <MyApplications
+                user={this.state.user}
+                setUser={(user) => this.setUser(user)}
+                handleSignInClick={(e) => this.handleShowSignInModal()}
+                handleNewLoanClick={(e) => this.handleShowNewLoanModal()}
+            />
+        );
+    }
+    renderMyLoansPage() {
+        return (
+            <MyLoans
+                user={this.state.user}
+                setUser={(user) => this.setUser(user)}
+                handleSignInClick={(e) => this.handleShowSignInModal()}
+                handleNewLoanClick={(e) => this.handleShowNewLoanModal()}
+            />
+        );
+    }
+
   render() {
     return (
       <div className="App">
-        <NavigationBar
-            user={this.state.user}
-            setUser={(user) => this.setUser(user)}
-            handleSignInClick={() => this.handleShowSignInModal()}
-            handleNewLoanClick={() => this.handleShowNewLoanModal()}
-        />
         <SignInModal
             show={this.state.showSignInModal}
             handleClose={() => this.handleCloseSignInModal()}
@@ -69,10 +92,9 @@ class App extends Component {
         />
         <Router>
     		<Switch>
-    			<Route exact path={'/'} 	render={() => <Intro handleNewLoanClick={() => this.handleShowNewLoanModal()}/>} />
-                <Route exact path={'/home'} render={() => <Intro handleNewLoanClick={() => this.handleShowNewLoanModal()}/>} />
-                <Route exact path={'/myApplications'} render={() => <MyApplications />} />
-                <Route exact path={'/myLoans'} render={() => <MyLoans />} />
+    			<Route exact path={'/'} 	render={() => this.renderIntroPage()} />
+                <Route exact path={'/myApplications'} render={() => this.renderMyApplicationPage()} />
+                <Route exact path={'/myLoans'} render={() => this.renderMyLoansPage()} />
     		</Switch>
     	</Router>
       </div>

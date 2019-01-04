@@ -6,7 +6,8 @@ import ProfileCard from '../ProfileCard';
 import LoanFormSelect from '../form_items/LoanFormSelect';
 import LoanFormPayableField from '../form_items/LoanFormPayableField';
 import LoanFromInput from '../form_items/LoanFromInput';
-import requests from '../../network/requests.js';
+import requests from '../../network/requests';
+import calculator from '../../utility/calculator';
 
 class NewLoanModal extends Component {
     constructor(props, context) {
@@ -53,13 +54,13 @@ class NewLoanModal extends Component {
                           <LoanFormSelect label="Business type" identifier="businessTypes" getItems={requests.getBusinessTypes}/>
                           <LoanFormSelect label="Repay frequency" identifier="loanFrequency" getItems={requests.getLoanFrequencyLabels}/>
                           <LoanFromInput label="Number of instalments" identifier="instalments" getPlaceholder={requests.getMaxNumInstalments}
-                                processPlaceholder={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : "max "+data[values.loanFrequency]}/>
+                                processPlaceholder={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : "max "+parseInt(data[values.loanFrequency])}/>
                           <LoanFromInput label="Loan amount (USD)" identifier="amount" getPlaceholder={requests.getMaxAmounts}
                                 processPlaceholder={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : "max $"+data[values.loanFrequency]}/>
                           <LoanFormPayableField label="Total repayable (USD)" getData={requests.getLoanRates}
-                                processData={(data) => data === null ? null : data[values.loanFrequency] === undefined || values.amount === undefined ? null : values.amount*(1+data[values.loanFrequency]/100.00)}/>
-                          <LoanFormPayableField label="Per instalment (USD)" getData={requests.getLoanRates}
-                                processData={(data) => data === null ? null : data[values.loanFrequency] === undefined || values.amount === undefined ? null : (parseFloat(values.amount)/values.instalments)*(1+data[values.loanFrequency]/100.00)}/>
+                                processData={(data) => data === null ? null : data[values.loanFrequency] === undefined || values.amount === undefined ? null : calculator.getTotalPayable(values.amount, data[values.loanFrequency])}/>
+                          <LoanFormPayableField label="Per instalment (USD)" getData={requests.getLoanRates} identifier="perInstalment"
+                                processData={(data) => data === null ? null : data[values.loanFrequency] === undefined || values.amount === undefined ? null : calculator.getPerInstalment(values.amount, data[values.loanFrequency], values.instalments)}/>
                           <div className="form-group content-inline content-align-end">
                             <label className="control-label field-label-margin">Upload docs</label>
                             <input
@@ -88,9 +89,9 @@ class NewLoanModal extends Component {
                                 <button type="submit" className="btn btn-success" disabled={submitting || pristine}>Submit</button>
                                 <button
                                 type="button"
-                                onClick={form.reset}
+                                onClick={() => form.reset({})}
                                 className="btn btn-danger"
-                                disabled={submitting || pristine}
+                                disabled={submitting}
                                 >
                                 Reset
                                 </button>

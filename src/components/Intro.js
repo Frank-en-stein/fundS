@@ -9,7 +9,7 @@ class Intro extends Component {
             <div>
                 <NavigationBar
                     user={this.props.user}
-                    setUser={(user) => this.props.setUser(user)}
+                    setUser={this.props.setUser}
                     handleSignInClick={(e) => this.props.handleSignInClick(e)}
                     handleNewLoanClick={(e) => this.props.handleNewLoanClick(e)}
                 />
@@ -26,7 +26,9 @@ class Intro extends Component {
                         <p className="text-info intro-sub-content">Get <strong>fund$</strong></p>
                         <p className="text-success intro-sub-content">Repay</p>
                         </div>
-                        <Button bsSize="large" bsStyle="warning" className="get-started-btn"><strong>Get started now></strong></Button>
+                        <Button bsSize="large" bsStyle="warning" className="get-started-btn" onClick={()=>this.props.user===null ? this.props.handleSignInClick() : this.props.handleNewLoanClick()}>
+                            <strong>Get started now></strong>
+                        </Button>
                     </div>
                 </header>
             </div>

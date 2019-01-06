@@ -7,12 +7,14 @@
             "loanRates": "/form/params/loanRates",
             "maxInstalments": "/form/params/maxInstalments",
             "maxAmounts": "/form/params/maxAmounts",
-            "loanApplications": "/loan/application/all"
+            "loanApplications": "/loan/application/all",
+            "loans": "/loan/all"
         },
         "post": {
             "loanApplicationDraft": "/loan/application/draft",
             "loanApplicationNew": "/loan/application/new",
-            "loanApplicationCancel": "/loan/application/cancel"
+            "loanApplicationCancel": "/loan/application/cancel",
+            "loanInstalment": "/loan/instalment/confirm"
         }
     }
 }

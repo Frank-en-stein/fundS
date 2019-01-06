@@ -179,7 +179,15 @@
 }
 .my-application-table {
     background-color: white !important;
-    opacity: .85;
+    opacity: .92;
+    overflow-y: auto;
+}
+.my-loan {
+    height: 100vh;
+}
+.my-loan-table {
+    background-color: white !important;
+    opacity: .92;
     overflow-y: auto;
 }
 table th {

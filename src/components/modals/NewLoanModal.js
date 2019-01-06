@@ -28,7 +28,8 @@ class NewLoanModal extends Component {
     }
 
     onSubmit = (values) => {
-      requests.postNewLoanApplication(values, (isSuccess) => {
+      requests.postNewLoanApplication(values, (isSuccess, application) => {
+          this.props.addMyApplication(application);
           if (isSuccess)  this.props.handleClose();
           else alert("Application submission failed");
           //window.alert(JSON.stringify(values, 0, 2));

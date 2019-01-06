@@ -10,15 +10,14 @@ class MyApplications extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            applications: null,
             rates: null
         }
     }
     componentWillMount() {
-        if (this.state.applications === null) {
+        if (this.props.applications === null) {
             requests.getMyApplications((isSuccess, data) => {
-                this.setState({applications: data});
-                console.log(data);
+                this.props.setMyApplications(data);
+                //console.log(data);
             });
         }
         if (this.state.rates === null) {
@@ -29,14 +28,21 @@ class MyApplications extends Component {
     }
 
     cancelApplication(application, index) {
-        requests.postApplicationCancel(application, (isSuccess) => {
+        var id = window.prompt("Please enter the application id to confirm:");
+        if (id === null) return;
+        if (id !== application.id) {
+            alert("Wrong application id entered");
+            return;
+        }
+        requests.postApplicationCancel(application, (isSuccess, application) => {
             if (isSuccess) {
-                var applications = this.state.applications;
+                var applications = this.props.applications;
                 if (applications!==null) if(applications.length > index) {
-                    applications[index].status = "Cancelled";
-                    this.setState(applications);
+                    if (application === null) applications.splice(index, 1);
+                    else applications[index] = application;
+                    this.props.setMyApplications(applications);
                 }
-            }
+            } else alert("Error occurred, action failed");
         });
     }
 
@@ -66,8 +72,8 @@ class MyApplications extends Component {
                 </thead>
                 <tbody>
                     {
-                        this.state.applications === null ? null : this.state.applications.map((application, index) => (
-                            <tr>
+                        this.props.applications === null || this.props.applications === undefined ? null : this.props.applications.map((application, index) => (
+                            <tr key={index}>
                                 <td><FaClose onClick={(e)=>this.cancelApplication(application, index)}/></td>
                                 <td>{index+1}</td>
                                 <td>{application.id}</td>

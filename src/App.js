@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
 import Intro from './components/Intro';
+import './App.css';
 import NewLoanModal from './components/modals/NewLoanModal';
 import SignInModal from './components/modals/SignInModal';
 import MyApplications from './components/MyApplications';
@@ -19,8 +19,8 @@ class App extends Component {
           showNewLoanModal: false,
           newLoanModalTitle: "New loan application",
           user: null,
-          myApplicationsShouldUpdate: false,
-          myLoansShouldUpdate: false
+          myApplications: null,
+          myLoans: null
         };
     }
     componentWillMount() {
@@ -47,7 +47,7 @@ class App extends Component {
 
     renderIntroPage() {
         return (
-            <Intro 
+            <Intro
                 user={this.state.user}
                 setUser={(user) => this.setUser(user)}
                 handleSignInClick={(e) => this.handleShowSignInModal()}
@@ -62,7 +62,8 @@ class App extends Component {
                 setUser={(user) => this.setUser(user)}
                 handleSignInClick={(e) => this.handleShowSignInModal()}
                 handleNewLoanClick={(e) => this.handleShowNewLoanModal()}
-                myApplicationsShouldUpdate={this.state.myApplicationsShouldUpdate}
+                applications={this.state.myApplications}
+                setMyApplications={(data)=>this.setState({myApplications:  data})}
             />
         );
     }
@@ -73,7 +74,8 @@ class App extends Component {
                 setUser={(user) => this.setUser(user)}
                 handleSignInClick={(e) => this.handleShowSignInModal()}
                 handleNewLoanClick={(e) => this.handleShowNewLoanModal()}
-                myLoansShouldUpdate={this.state.myLoansShouldUpdate}
+                loans={this.state.myLoans}
+                setMyLoans={(data)=>this.setState({myLoans: data})}
             />
         );
     }
@@ -91,6 +93,15 @@ class App extends Component {
             handleClose={() => this.handleCloseNewLoanModal()}
             user={this.state.user}
             modalTitle={this.state.newLoanModalTitle}
+            addMyApplication={(data) => {
+                    var applications = this.state.myApplications;
+                    //console.log(applications);
+                    if (applications !== null) {
+                        applications.push(data);
+                        this.setState({myApplications: applications});
+                    }
+                }
+            }
         />
         <Router>
     		<Switch>

@@ -5,7 +5,7 @@ import { Form } from 'react-final-form';
 import ProfileCard from '../ProfileCard';
 import LoanFormSelect from '../form_items/LoanFormSelect';
 import LoanFormPayableField from '../form_items/LoanFormPayableField';
-import LoanFromInput from '../form_items/LoanFromInput';
+import LoanFormInput from '../form_items/LoanFromInput';
 import requests from '../../network/requests';
 import calculator from '../../utility/calculator';
 
@@ -52,12 +52,12 @@ class NewLoanModal extends Component {
                       values={this.state.formValues}
                       render={({ handleSubmit, form, submitting, pristine, values }) => (
                         <form onSubmit={handleSubmit} className="form-horizontal">
-                          <LoanFormSelect label="Business type" identifier="businessTypes" getItems={requests.getBusinessTypes}/>
-                          <LoanFormSelect label="Repay frequency" identifier="loanFrequency" getItems={requests.getLoanFrequencyLabels}/>
-                          <LoanFromInput label="Number of instalments" identifier="instalments" getPlaceholder={requests.getMaxNumInstalments}
-                                processPlaceholder={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : "max "+parseInt(data[values.loanFrequency])}/>
-                          <LoanFromInput label="Loan amount (USD)" identifier="amount" getPlaceholder={requests.getMaxAmounts}
-                                processPlaceholder={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : "max $"+data[values.loanFrequency]}/>
+                          <LoanFormSelect label="Business type" identifier="businessTypes" getItems={requests.getBusinessTypes} required={true}/>
+                          <LoanFormSelect label="Repay frequency" identifier="loanFrequency" getItems={requests.getLoanFrequencyLabels} required={true}/>
+                          <LoanFormInput label="Number of instalments" identifier="instalments" getPlaceholder={requests.getMaxNumInstalments}
+                                processPlaceholder={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : "max "+parseInt(data[values.loanFrequency])} required={true}/>
+                          <LoanFormInput label="Loan amount (USD)" identifier="amount" getPlaceholder={requests.getMaxAmounts}
+                                processPlaceholder={(data) => data === null ? null : data[values.loanFrequency] === undefined ? null : "max $"+data[values.loanFrequency]} required={true}/>
                           <LoanFormPayableField label="Total repayable (USD)" getData={requests.getLoanRates}
                                 processData={(data) => data === null ? null : data[values.loanFrequency] === undefined || values.amount === undefined ? null : calculator.getTotalPayable(values.amount, data[values.loanFrequency])}/>
                           <LoanFormPayableField label="Per instalment (USD)" getData={requests.getLoanRates} identifier="perInstalment"
@@ -71,6 +71,7 @@ class NewLoanModal extends Component {
                               placeholder="docs"
                               className="form-control field-width field-margin"
                               onChange={(event) => event.target.length === 0 ? null : values["docs"] = event.target.files[0]}
+                              required={true}
                             />
                           </div>
                           <hr/>
@@ -98,7 +99,6 @@ class NewLoanModal extends Component {
                                 </button>
                             </div>
                           </div>
-                          <pre>{JSON.stringify(values, 0, 2)}</pre>
                         </form>
                       )}
                     />

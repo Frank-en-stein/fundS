@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './../../App.css';
 import { Field } from 'react-final-form';
 
-class LoanFromPayable extends Component {
+class LoanFormInput extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -21,13 +21,17 @@ class LoanFromPayable extends Component {
                     <Field
                         name={this.props.identifier}
                         component="input"
-                        type="text"
+                        type="number"
+                        min="0"
                         placeholder={this.props.processPlaceholder(this.state.placeholderData)}
                         className="form-control field-width field-margin"
+                        required={this.props.required}
+                        pattern="[0-9]"
+                        title="Please enter number only"
                     />
             </div>
         );
     }
 }
 
-export default LoanFromPayable;
+export default LoanFormInput;

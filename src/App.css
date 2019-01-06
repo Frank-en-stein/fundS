@@ -64,6 +64,9 @@
     .intro {
         width: 75vw;
     }
+    .intro-calc {
+        width: 97vw;
+    }
 }
 @media only screen and (min-width: 769px) {
     .intro {
@@ -75,6 +78,10 @@
 }
 
 .intro {
+    background-color: white;
+    opacity: .85;
+}
+.intro-calc {
     background-color: white;
     opacity: .85;
 }
@@ -192,4 +199,16 @@
 }
 table th {
     text-align: center;
+}
+
+.calculator-input-amount {
+    width: 6em;
+    height: 1.65em;
+}
+.calculator-input-numberOfInstalments {
+    width: 2em;
+    height: 1.65em;
+}
+.calculator-select-loanFrequency {
+    height: 1.65em;
 }

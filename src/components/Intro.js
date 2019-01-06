@@ -22,9 +22,9 @@ class Intro extends Component {
                             </div>
                         </blockquote>
                         <div className="intro-sub">
-                        <p className="text-danger intro-sub-content">Apply</p>
-                        <p className="text-info intro-sub-content">Get <strong>fund$</strong></p>
-                        <p className="text-success intro-sub-content">Repay</p>
+                            <p className="text-danger intro-sub-content">Apply</p>
+                            <p className="text-info intro-sub-content">Get <strong>fund$</strong></p>
+                            <p className="text-success intro-sub-content">Repay</p>
                         </div>
                         <Button bsSize="large" bsStyle="warning" className="get-started-btn" onClick={()=>this.props.user===null ? this.props.handleSignInClick() : this.props.handleNewLoanClick()}>
                             <strong>Get started now></strong>

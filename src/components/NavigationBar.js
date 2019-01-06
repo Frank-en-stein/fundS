@@ -43,19 +43,12 @@ class NavigationBar extends Component {
               </Navbar.Header>
               <Navbar.Collapse className="height-inherit">
                 <Nav>
-                  <NavItem eventKey={1} href="#">
-                    Link
+                  <NavItem eventKey={1} href="/" to="/" componentClass={Link}>
+                    Home
                   </NavItem>
-                  <NavItem eventKey={2} href="#">
-                    Link
+                  <NavItem eventKey={2} href="/fundCalculator" to="/fundCalculator" componentClass={Link}>
+                    Calculator
                   </NavItem>
-                  <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-                    <MenuItem eventKey={3.1}>Action</MenuItem>
-                    <MenuItem eventKey={3.2}>Another action</MenuItem>
-                    <MenuItem eventKey={3.3}>Something else here</MenuItem>
-                    <MenuItem divider />
-                    <MenuItem eventKey={3.3}>Separated link</MenuItem>
-                  </NavDropdown>
                 </Nav>
                 <Nav pullRight>
                   { this.props.user == null ? this.signin() : this.account() }

@@ -1,7 +1,10 @@
 {
     "businessTypes": [
-        "one",
-        "two"
+        "Food",
+        "Tech",
+        "Retail",
+        "Supply",
+        "Logistics"
     ],
     "loanFrequencyLabels": ["weekly", "biweekly", "monthly", "quarterly", "yearly"],
     "loanRates": {

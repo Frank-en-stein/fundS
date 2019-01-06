@@ -5,6 +5,7 @@ import NewLoanModal from './components/modals/NewLoanModal';
 import SignInModal from './components/modals/SignInModal';
 import MyApplications from './components/MyApplications';
 import MyLoans from './components/MyLoans';
+import Calculator from './components/Calculator';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Redirect } from 'react-router'
 
@@ -81,6 +82,16 @@ class App extends Component {
             />
         );
     }
+    renderCalculator() {
+        return (
+            <Calculator
+                user={this.state.user}
+                setUser={(user) => this.setUser(user)}
+                handleSignInClick={(e) => this.handleShowSignInModal()}
+                handleNewLoanClick={(e) => this.handleShowNewLoanModal()}
+            />
+        );
+    }
 
   render() {
     return (
@@ -110,6 +121,7 @@ class App extends Component {
     			<Route exact path={'/'} 	render={() => this.renderIntroPage()} />
                 <Route exact path={'/myApplications'} render={() => this.renderMyApplicationPage()} />
                 <Route exact path={'/myLoans'} render={() => this.renderMyLoansPage()} />
+                <Route exact path={'/fundCalculator'} render={() => this.renderCalculator()} />
     		</Switch>
     	</Router>
       </div>

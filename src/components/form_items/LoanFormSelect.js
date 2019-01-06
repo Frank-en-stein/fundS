@@ -20,8 +20,13 @@ class LoanFormSelect extends Component {
         return (
             <div className="form-group content-inline content-align-end">
                 <label className="control-label field-label-margin" htmlFor={this.props.identifier}>{this.props.label}</label>
-                <Field name={this.props.identifier} id={this.props.identifier} component="select" className="form-control field-width field-margin">
-                    <option key={0}>(Select {this.props.label})</option>
+                <Field
+                    name={this.props.identifier}
+                    id={this.props.identifier}
+                    component="select"
+                    required={this.props.required}
+                    className="form-control field-width field-margin">
+                    <option key={0} value="">(Select {this.props.label})</option>
                     { this.state.items === null ? null : this.state.items.map((item, idx) => <option key={idx + 1}>{item}</option>)}
                 </Field>
             </div>

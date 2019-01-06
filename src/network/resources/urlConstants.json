@@ -14,7 +14,9 @@
             "loanApplicationDraft": "/loan/application/draft",
             "loanApplicationNew": "/loan/application/new",
             "loanApplicationCancel": "/loan/application/cancel",
-            "loanInstalment": "/loan/instalment/confirm"
+            "loanInstalment": "/loan/instalment/confirm",
+            "signIn": "/signIn",
+            "signOut": "/signOut"
         }
     }
 }

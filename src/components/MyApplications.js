@@ -61,6 +61,7 @@ class MyApplications extends Component {
                         <th></th>
                         <th>#</th>
                         <th>ID</th>
+                        <th>Created</th>
                         <th>Status</th>
                         <th>Business Type</th>
                         <th>Amount (USD)</th>
@@ -77,6 +78,7 @@ class MyApplications extends Component {
                                 <td><FaClose onClick={(e)=>this.cancelApplication(application, index)}/></td>
                                 <td>{index+1}</td>
                                 <td>{application.id}</td>
+                                <td>{application.date}</td>
                                 <td>{application.status}</td>
                                 <td>{application.businessTypes}</td>
                                 <td>{application.amount}</td>

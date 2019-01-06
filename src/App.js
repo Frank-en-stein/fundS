@@ -6,6 +6,7 @@ import SignInModal from './components/modals/SignInModal';
 import MyApplications from './components/MyApplications';
 import MyLoans from './components/MyLoans';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Redirect } from 'react-router'
 
 class App extends Component {
     constructor(props, context) {
@@ -41,8 +42,7 @@ class App extends Component {
     }
     setUser(fetchedUser) {
       this.setState({ user: fetchedUser });
-      localStorage.setItem("user", JSON.stringify(fetchedUser));
-      console.log(this.state.user._profile);
+      //console.log(this.state.user._profile);
     }
 
     renderIntroPage() {
@@ -56,6 +56,7 @@ class App extends Component {
         );
     }
     renderMyApplicationPage() {
+        if (this.state.user === null) return <Redirect to="/" />;
         return (
             <MyApplications
                 user={this.state.user}
@@ -68,6 +69,7 @@ class App extends Component {
         );
     }
     renderMyLoansPage() {
+        if (this.state.user === null) return <Redirect to="/" />;
         return (
             <MyLoans
                 user={this.state.user}

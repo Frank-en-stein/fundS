@@ -194,6 +194,7 @@ function postNewLoanApplication(data, callback) {
         var dummyApplication = data;
         dummyApplication['id'] = generator.makeRandomId(5);
         dummyApplication['status'] = dummyResponse.applicationStatuses[generator.makeRandomInt(4)];
+        dummyApplication['date'] = new Date().toISOString().substring(0, 10);
         console.log(dummyApplication);
         loanApplications.push(dummyApplication);
         localStorage.setItem("loanApplications", JSON.stringify(loanApplications));
@@ -256,7 +257,7 @@ function postApplicationCancel(application, callback) {
 
 function postLoanInstalment(loan, txId, callback) {
     if (isDummy) {
-        if (loan!==null) if (loan.instalments.paid < loan.instalments.total) if (generator.makeRandomInt(2)%2==0) {
+        if (loan!==null) if (loan.instalments.paid < loan.instalments.total) if (generator.makeRandomInt(2)%2===0) {
             var loans = JSON.parse(localStorage.getItem("loans"));
             var index = loans.findIndex((item)=>item.id===loan.id);
             if (index!==null) {
@@ -293,6 +294,54 @@ function postLoanInstalment(loan, txId, callback) {
         });
 }
 
+function postSignIn(user, callback) {
+    if (user === null) {
+        callback(false, null);
+        return;
+    }
+    var tokens = {accessToken: null, refreshToken: null};
+    if (isDummy) {
+        tokens.accessToken = generator.makeRandomId(32);
+        tokens.refreshToken = generator.makeRandomId(32);
+        user["tokens"] = tokens;
+        localStorage.setItem("user", JSON.stringify(user));
+        callback(true, user);
+        return;
+    }
+    let payload = {"user": user};
+    axios.post(networkUtils.makeUrl(urlConstants.paths.post.signIn), payload)
+        .then((response) => {
+            localStorage.setItem("user", response);
+            callback(true, response);
+        })
+        .catch((error) => {
+            console.log(error);
+            callback(false, null);
+        });
+}
+
+function postSignOut(user, callback) {
+    if (user === null) {
+        callback(false, null);
+        return;
+    }
+    if (isDummy) {
+        localStorage.setItem("user", null);
+        callback(true, null);
+        return;
+    }
+    let payload = {"user": user};
+    axios.post(networkUtils.makeUrl(urlConstants.paths.post.signOut), payload)
+        .then((response) => {
+            localStorage.clear();
+            callback(true, null);
+        })
+        .catch((error) => {
+            console.log(error);
+            callback(false, null);
+        });
+}
+
 export default { getBusinessTypes, getLoanFrequencyLabels, getLoanRates, getMaxNumInstalments,
     getMaxAmounts, getLoanApplicationDraftForm, getMyApplications, getMyLoans, postLoanApplicationDraftForm,
-    postNewLoanApplication, postApplicationCancel, postLoanInstalment };
+    postNewLoanApplication, postApplicationCancel, postLoanInstalment, postSignIn, postSignOut };

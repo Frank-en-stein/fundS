@@ -4,11 +4,16 @@ import * as SocialIDs from './../../SocialIDs.json';
 import { Button, Modal } from 'react-bootstrap';
 import SocialButton from '../form_items/SocialButton';
 import { FaFacebook, FaGoogle, FaLinkedin } from 'react-icons/lib/fa';
+import requests from './../../network/requests';
 
 class SignInModal extends Component {
     handleSocialLogin = (user) => {
-        this.props.setUser(user);
-        this.props.handleClose()
+        requests.postSignIn(user, (isSuccess, newUser) => {
+            if (isSuccess) {
+                this.props.setUser(newUser);
+                this.props.handleClose();
+            } else alert("SignIn failed");
+        });
     }
 
     handleSocialLoginFailure = (err) => {

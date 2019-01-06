@@ -1,14 +1,14 @@
 {
-  "main.css": "/fundS/build/static/css/main.9ade9084.chunk.css",
-  "main.js": "/fundS/build/static/js/main.b209265b.chunk.js",
-  "main.js.map": "/fundS/build/static/js/main.b209265b.chunk.js.map",
-  "static/js/1.db10ac06.chunk.js": "/fundS/build/static/js/1.db10ac06.chunk.js",
-  "static/js/1.db10ac06.chunk.js.map": "/fundS/build/static/js/1.db10ac06.chunk.js.map",
-  "runtime~main.js": "/fundS/build/static/js/runtime~main.c57d4320.js",
-  "runtime~main.js.map": "/fundS/build/static/js/runtime~main.c57d4320.js.map",
-  "static/media/App.css": "/fundS/build/static/media/background.727540db.jpg",
-  "static/css/main.9ade9084.chunk.css.map": "/fundS/build/static/css/main.9ade9084.chunk.css.map",
-  "index.html": "/fundS/build/index.html",
-  "precache-manifest.9aa4104f9bdf2ad46d81b0f8d0ec4aaf.js": "/fundS/build/precache-manifest.9aa4104f9bdf2ad46d81b0f8d0ec4aaf.js",
-  "service-worker.js": "/fundS/build/service-worker.js"
+  "main.css": "/fundS/static/css/main.9701f587.chunk.css",
+  "main.js": "/fundS/static/js/main.be2caf4c.chunk.js",
+  "main.js.map": "/fundS/static/js/main.be2caf4c.chunk.js.map",
+  "static/js/1.db10ac06.chunk.js": "/fundS/static/js/1.db10ac06.chunk.js",
+  "static/js/1.db10ac06.chunk.js.map": "/fundS/static/js/1.db10ac06.chunk.js.map",
+  "runtime~main.js": "/fundS/static/js/runtime~main.fdf741e8.js",
+  "runtime~main.js.map": "/fundS/static/js/runtime~main.fdf741e8.js.map",
+  "static/media/App.css": "/fundS/static/media/background.727540db.jpg",
+  "static/css/main.9701f587.chunk.css.map": "/fundS/static/css/main.9701f587.chunk.css.map",
+  "index.html": "/fundS/index.html",
+  "precache-manifest.6013dcb54c383c6654e5de6cd29af1e6.js": "/fundS/precache-manifest.6013dcb54c383c6654e5de6cd29af1e6.js",
+  "service-worker.js": "/fundS/service-worker.js"
 }

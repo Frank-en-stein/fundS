@@ -116,7 +116,7 @@ class App extends Component {
                 }
             }
         />
-        <Router>
+        <Router basename='/fundS'>
     		<Switch>
     			<Route exact path={'/'} 	render={() => this.renderIntroPage()} />
                 <Route exact path={'/myApplications'} render={() => this.renderMyApplicationPage()} />

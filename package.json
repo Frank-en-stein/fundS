@@ -1,7 +1,7 @@
 {
   "name": "fundS",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage": "https://frank-en-stein.github.io/fundS/",
   "dependencies": {
     "axios": "^0.18.0",

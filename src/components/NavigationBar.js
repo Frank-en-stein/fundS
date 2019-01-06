@@ -28,7 +28,7 @@ class NavigationBar extends Component {
         requests.postSignOut(this.props.user, (isSuccess, newUser) => {
             if (isSuccess) {
                 this.props.setUser(null);
-                window.location = "/";
+                window.location = "/fundS";
             } else alert("Sign out failed");
         });
     }

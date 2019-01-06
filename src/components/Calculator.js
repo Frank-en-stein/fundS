@@ -4,7 +4,6 @@ import { Button } from 'react-bootstrap';
 import NavigationBar from './NavigationBar';
 import CalculationResults from './CalculationResults';
 import requests from './../network/requests';
-import calculator from './../utility/calculator';
 
 class Calculator extends Component {
     constructor(props, context) {
